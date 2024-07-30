@@ -1,7 +1,6 @@
 pipeline {
     agent any
-    }
-    tool {
+    tools {
         maven 'maven-3.8.7'
     }
     stages {
@@ -12,7 +11,7 @@ pipeline {
                     sh 'mvn package'
                 }
             }
-             stages {
+        }
         stage('build image') {
             steps {
                 script {
@@ -20,6 +19,7 @@ pipeline {
                     sh 'docker build -t coilhere/java-maven-app:2.0 .'
                 }
             }
+        }
         stage('push image') {
             steps {
                 script {
@@ -30,21 +30,6 @@ pipeline {
                         sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
                         sh 'docker push coilhere/java-maven-app:2.0'
                     }
-
-                }
-            }
-        }
-        stage('test') {
-            steps {
-                script {
-                    echo "Testing the application..."
-                }
-            }
-        }
-        stage('deploy') {
-            steps {
-                script {
-                    echo "Deploying the application..."
                 }
             }
         }

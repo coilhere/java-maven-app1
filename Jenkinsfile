@@ -27,7 +27,7 @@ pipeline {
                     withCredentials([
                         usernamePassword(credentials: 'dockerhub-credentials', usernameVariable: USERNAME, passwordVariable: PASSWORD)
                     ]) {
-                        sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
+                        sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                         sh 'docker push coilhere/java-maven-app:2.0'
                     }
                 }

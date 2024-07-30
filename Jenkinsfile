@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     echo "Pushing the image..."
-                    withCredentials([usernamePassword(credentialsId: 'ddockerhub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push coilhere/java-maven-app:2.0"
                     }

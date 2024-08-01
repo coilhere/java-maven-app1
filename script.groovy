@@ -1,23 +1,19 @@
 def buildJar() {
-    echo 'Building the app...'
+    echo "building the application..."
     sh 'mvn package'
-}
+} 
 
 def buildImage() {
-    echo 'Building the image...'
-    sh 'docker build -t coilhere/java-maven-app:2.0 .'
-}
-
-def pushImage() {
-    echo 'Pushing the image...'
+    echo "building the docker image..."
     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh 'docker build -t coilhere/java-maven-app:2.0 .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh "docker push coilhere/java-maven-app:2.0"
+        sh 'docker push coilhere/java-maven-app:2.0'
     }
-}
+} 
 
 def deployApp() {
-    echo 'Deploying the app...'
-}
+    echo 'deploying the application...'
+} 
 
 return this
